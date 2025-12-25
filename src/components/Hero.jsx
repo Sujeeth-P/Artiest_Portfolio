@@ -1,4 +1,55 @@
+import { useEffect, useRef, useState } from 'react';
+
 const Hero = () => {
+    const heroRef = useRef(null);
+    const contentRef = useRef(null);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+
+    // Slideshow images from todol folder
+    const slides = [
+        '/assets/todol/Hero2.jpg',
+        '/assets/todol/download.jpg',
+        '/assets/todol/download (1).jpg',
+        '/assets/todol/download (2).jpg',
+        '/assets/todol/download (3).jpg'
+    ];
+
+    // Auto-advance slideshow
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setCurrentSlide((prev) => (prev + 1) % slides.length);
+                setTimeout(() => setIsTransitioning(false), 1200);
+            }, 600);
+        }, 6000); // Change slide every 6 seconds
+
+        return () => clearInterval(interval);
+    }, [slides.length]);
+
+    useEffect(() => {
+        // Parallax effect on scroll
+        const handleScroll = () => {
+            if (!heroRef.current) return;
+            const scrollY = window.scrollY;
+            const heroHeight = heroRef.current.offsetHeight;
+
+            if (scrollY < heroHeight) {
+                const translateY = scrollY * 0.3;
+                const opacity = 1 - (scrollY / heroHeight) * 0.5;
+
+                if (contentRef.current) {
+                    contentRef.current.style.transform = `translateY(${translateY}px)`;
+                    contentRef.current.style.opacity = opacity;
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     const scrollToSection = (e, sectionId) => {
         e.preventDefault();
         const target = document.querySelector(sectionId);
@@ -9,101 +60,132 @@ const Hero = () => {
     };
 
     return (
-        <section className="relative min-h-screen flex items-center pt-32 pb-20 px-10 overflow-hidden" id="home">
-            {/* Background */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-cream-100 via-cream-200 to-[rgba(201,169,97,0.1)]" />
-                <div className="hero-pattern" />
+        <section
+            ref={heroRef}
+            className="hero-section"
+            id="home"
+        >
+            {/* Background Slideshow with Ink Reveal */}
+            <div className="hero-background">
+                {/* Ink reveal mask overlay */}
+                <div className={`hero-ink-mask ${isTransitioning ? 'active' : ''}`}>
+                    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <circle className="ink-circle ink-circle-1" cx="50" cy="50" r="0" />
+                        <circle className="ink-circle ink-circle-2" cx="30" cy="70" r="0" />
+                        <circle className="ink-circle ink-circle-3" cx="70" cy="30" r="0" />
+                        <circle className="ink-circle ink-circle-4" cx="20" cy="20" r="0" />
+                        <circle className="ink-circle ink-circle-5" cx="80" cy="80" r="0" />
+                    </svg>
+                </div>
+
+                {/* Slideshow images */}
+                {slides.map((slide, index) => (
+                    <img
+                        key={index}
+                        src={slide}
+                        alt={`Artwork showcase ${index + 1}`}
+                        className={`hero-slide ${index === currentSlide ? 'active' : ''} ${index === (currentSlide - 1 + slides.length) % slides.length ? 'prev' : ''
+                            }`}
+                    />
+                ))}
+
+                {/* Gradient Overlays for text readability */}
+                <div className="hero-overlay hero-overlay-left" />
+                <div className="hero-overlay hero-overlay-bottom" />
+                <div className="hero-vignette" />
+            </div>
+
+            {/* Slide indicators */}
+            <div className="hero-slide-indicators">
+                {slides.map((_, index) => (
+                    <button
+                        key={index}
+                        className={`slide-indicator ${index === currentSlide ? 'active' : ''}`}
+                        onClick={() => {
+                            if (index !== currentSlide) {
+                                setIsTransitioning(true);
+                                setTimeout(() => {
+                                    setCurrentSlide(index);
+                                    setTimeout(() => setIsTransitioning(false), 1200);
+                                }, 600);
+                            }
+                        }}
+                        aria-label={`Go to slide ${index + 1}`}
+                    />
+                ))}
             </div>
 
             {/* Content */}
-            <div className="relative z-[1] max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                {/* Text Content */}
-                <div className="max-w-[580px]">
-                    <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-5 opacity-0 animate-fade-in-up animate-delay-200">
-                        Professional Artist
+            <div ref={contentRef} className="hero-content">
+                <div className="hero-text-container">
+                    <span className="hero-subtitle">
+                        <span className="hero-subtitle-line"></span>
+                        Digital Artist & Illustrator
+                        <span className="hero-subtitle-line"></span>
                     </span>
 
-                    <h1 className="font-[var(--font-display)] text-[clamp(3rem,6vw,4.5rem)] font-semibold leading-[1.1] text-[#1a1a1a] mb-6 opacity-0 animate-fade-in-up animate-delay-400">
-                        Transforming Your <br />
-                        <span className="text-gold-500 italic">Vision Into Art</span>
+                    <h1 className="hero-title">
+                        <span className="hero-title-line">Where Stories</span>
+                        <span className="hero-title-line hero-title-accent">Come to Life</span>
                     </h1>
 
-                    <p className="text-[1.1rem] text-[#4a4a4a] leading-[1.8] mb-9 opacity-0 animate-fade-in-up animate-delay-600">
-                        I create stunning custom paintings, portraits, and artwork that capture emotions and tell your
-                        unique story. Every piece is crafted with passion and precision.
+                    <p className="hero-description">
+                        Creating immersive worlds and captivating characters through
+                        digital art. Every piece tells a story waiting to be discovered.
                     </p>
 
-                    <div className="flex gap-5 mb-[50px] opacity-0 animate-fade-in-up animate-delay-800 flex-wrap">
+                    <div className="hero-cta-group">
                         <a
                             href="#portfolio"
                             onClick={(e) => scrollToSection(e, '#portfolio')}
-                            className="inline-flex items-center gap-[10px] px-8 py-4 text-[0.9rem] font-semibold rounded-[50px] 
-                text-white bg-charcoal-800 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
-                hover:bg-gold-500 hover:-translate-y-[3px] hover:shadow-[0_15px_40px_rgba(185,150,63,0.3)]"
+                            className="hero-cta hero-cta-primary"
                         >
-                            <span>View My Work</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <span>Explore My Art</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </a>
                         <a
                             href="#contact"
                             onClick={(e) => scrollToSection(e, '#contact')}
-                            className="inline-flex items-center gap-[10px] px-8 py-4 text-[0.9rem] font-semibold rounded-[50px]
-                text-[#1a1a1a] bg-transparent border-2 border-charcoal-800 transition-all duration-400 
-                hover:bg-charcoal-800 hover:text-white hover:-translate-y-[3px]"
+                            className="hero-cta hero-cta-secondary"
                         >
-                            <span>Start Commission</span>
+                            <span>Commission Work</span>
                         </a>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="flex gap-[50px] pt-[30px] border-t border-cream-300 opacity-0 animate-fade-in-up animate-delay-1000 flex-wrap">
-                        {[
-                            { number: '150+', label: 'Artworks Created' },
-                            { number: '80+', label: 'Happy Clients' },
-                            { number: '8', label: 'Years Experience' }
-                        ].map((stat, index) => (
-                            <div key={index} className="text-left">
-                                <span className="block font-[var(--font-display)] text-[2.5rem] font-semibold text-[#1a1a1a] leading-none">
-                                    {stat.number}
-                                </span>
-                                <span className="text-[0.85rem] text-[#7a7a7a] mt-[5px]">{stat.label}</span>
-                            </div>
-                        ))}
                     </div>
                 </div>
 
-                {/* Gallery - Static without parallax animation */}
-                <div className="relative h-[600px] hidden lg:block">
-                    <div className="absolute w-[380px] h-[480px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[3] 
-            rounded-lg overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-all duration-400
-            hover:scale-[1.02] hover:shadow-[0_30px_80px_rgba(0,0,0,0.2)]">
-                        <img src="/assets/portrait_artwork.png" alt="Portrait Artwork by Elena Ross" className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 border-4 border-white/50 rounded-lg pointer-events-none" />
-                    </div>
-
-                    <div className="absolute w-[200px] h-[260px] top-[10%] left-0 z-[2] -rotate-[5deg]
-            rounded-lg overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-all duration-400
-            hover:scale-105">
-                        <img src="/assets/landscape_painting.png" alt="Landscape Painting" className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 border-4 border-white/50 rounded-lg pointer-events-none" />
-                    </div>
-
-                    <div className="absolute w-[200px] h-[260px] bottom-[10%] right-0 z-[2] rotate-[5deg]
-            rounded-lg overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-all duration-400
-            hover:scale-105">
-                        <img src="/assets/abstract_art.png" alt="Abstract Art" className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 border-4 border-white/50 rounded-lg pointer-events-none" />
-                    </div>
+                {/* Floating Stats */}
+                <div className="hero-stats">
+                    {[
+                        { number: '150+', label: 'Artworks' },
+                        { number: '80+', label: 'Clients' },
+                        { number: '8+', label: 'Years' }
+                    ].map((stat, index) => (
+                        <div
+                            key={index}
+                            className="hero-stat"
+                            style={{ animationDelay: `${1.2 + index * 0.15}s` }}
+                        >
+                            <span className="hero-stat-number">{stat.number}</span>
+                            <span className="hero-stat-label">{stat.label}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
 
             {/* Scroll Indicator */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-[10px] opacity-0 animate-fade-in-up animate-delay-1200">
-                <div className="scroll-line" />
-                <span className="text-[0.7rem] font-medium tracking-[2px] uppercase text-[#7a7a7a]">Scroll to explore</span>
+            <div className="hero-scroll-indicator">
+                <div className="hero-scroll-mouse">
+                    <div className="hero-scroll-wheel"></div>
+                </div>
+                <span className="hero-scroll-text">Scroll to explore</span>
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="hero-decorative">
+                <div className="hero-glow hero-glow-1"></div>
+                <div className="hero-glow hero-glow-2"></div>
             </div>
         </section>
     );

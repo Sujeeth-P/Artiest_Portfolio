@@ -85,7 +85,7 @@ const Portfolio = ({ onViewArtwork }) => {
     };
 
     return (
-        <section className="py-[120px] px-10 bg-white" id="portfolio">
+        <section className="py-[120px] px-10 bg-[#fcf7e7]" id="portfolio">
             {/* Section Header */}
             <div className="text-center max-w-[600px] mx-auto mb-[60px]">
                 <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
@@ -107,8 +107,8 @@ const Portfolio = ({ onViewArtwork }) => {
                         onClick={() => setActiveFilter(filter.value)}
                         className={`px-7 py-3 text-[0.85rem] font-medium rounded-[30px] transition-all duration-200
               ${activeFilter === filter.value
-                                ? 'text-white bg-charcoal-800'
-                                : 'text-[#4a4a4a] bg-cream-100 hover:text-white hover:bg-charcoal-800'
+                                ? 'text-[#2a2a2a] bg-gold-400'
+                                : 'text-[#4a4a4a] bg-white hover:text-[#2a2a2a] hover:bg-gold-300'
                             }`}
                     >
                         {filter.label}
@@ -170,7 +170,7 @@ const Portfolio = ({ onViewArtwork }) => {
                     href="#contact"
                     onClick={scrollToContact}
                     className="inline-flex items-center gap-[10px] px-8 py-4 text-[0.9rem] font-semibold rounded-[50px] 
-            text-white bg-charcoal-800 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
+            text-[#2a2a2a] bg-gold-400 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
             hover:bg-gold-500 hover:-translate-y-[3px] hover:shadow-[0_15px_40px_rgba(185,150,63,0.3)]"
                 >
                     <span>Request Custom Artwork</span>

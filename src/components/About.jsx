@@ -14,7 +14,7 @@ const About = () => {
     ];
 
     return (
-        <section className="py-[120px] px-10 bg-cream-100" id="about">
+        <section className="py-[120px] px-10 bg-[#fcf7e7]" id="about">
             <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-[80px] items-center">
                 {/* Image */}
                 <div className="relative flex-shrink-0">
@@ -25,12 +25,12 @@ const About = () => {
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <div className="absolute -bottom-6 -right-6 bg-charcoal-800 text-white px-8 py-6 rounded-xl 
-            shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
-                        <span className="block font-[var(--font-display)] text-[2.5rem] font-semibold text-gold-400 leading-none">
+                    <div className="absolute -bottom-6 -right-6 bg-[#f5f0e8] border border-[#e8dfd3] text-[#2a2a2a] px-8 py-6 rounded-xl 
+            shadow-[0_10px_40px_rgba(0,0,0,0.1)]">
+                        <span className="block font-[var(--font-display)] text-[2.5rem] font-semibold text-gold-500 leading-none">
                             8+
                         </span>
-                        <span className="text-[0.9rem] text-white/80">Years Creating Art</span>
+                        <span className="text-[0.9rem] text-[#6b6b6b]">Years Creating Art</span>
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@ const About = () => {
                         href="#contact"
                         onClick={scrollToContact}
                         className="inline-flex items-center gap-[10px] px-8 py-4 text-[0.9rem] font-semibold rounded-[50px] 
-              text-white bg-charcoal-800 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
+              text-[#2a2a2a] bg-gold-400 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
               hover:bg-gold-500 hover:-translate-y-[3px] hover:shadow-[0_15px_40px_rgba(185,150,63,0.3)]"
                     >
                         <span>Let's Work Together</span>

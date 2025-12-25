@@ -103,8 +103,8 @@ const Navbar = () => {
                 <a
                     href="#contact"
                     onClick={(e) => scrollToSection(e, '#contact')}
-                    className="hidden md:flex items-center gap-2 px-7 py-3 text-[0.85rem] font-semibold text-white 
-            bg-charcoal-800 rounded-[30px] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
+                    className="hidden md:flex items-center gap-2 px-7 py-3 text-[0.85rem] font-semibold text-[#2a2a2a] 
+            bg-gold-400 rounded-[30px] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
             hover:bg-gold-500 hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(185,150,63,0.3)]"
                 >
                     <span>Commission Art</span>

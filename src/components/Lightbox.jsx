@@ -49,7 +49,8 @@ const Lightbox = ({ isOpen, artwork, onClose }) => {
                 />
                 <div className="lightbox-info">
                     <h3>{artwork.title}</h3>
-                    <p>{artwork.medium} • {artwork.size}</p>
+                    <p>{artwork.medium} {artwork.size ? `• ${artwork.size}` : ''} {artwork.year ? `• ${artwork.year}` : ''}</p>
+                    {artwork.description && <p style={{ marginTop: '10px', opacity: 0.7 }}>{artwork.description}</p>}
                 </div>
             </div>
         </div>

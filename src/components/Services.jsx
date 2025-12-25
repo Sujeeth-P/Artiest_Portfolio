@@ -51,7 +51,7 @@ const Services = () => {
     ];
 
     return (
-        <section className="py-[120px] px-10 bg-cream-100" id="services">
+        <section className="py-[120px] px-10 bg-[#fcf7e7]" id="services">
             {/* Section Header */}
             <div className="text-center max-w-[600px] mx-auto mb-[60px]">
                 <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
@@ -73,7 +73,7 @@ const Services = () => {
                         className={`relative p-10 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] 
               transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
               hover:-translate-y-[10px] hover:shadow-[0_20px_60px_rgba(0,0,0,0.15)]
-              ${service.featured ? 'bg-charcoal-800 text-white' : 'bg-white'}`}
+              ${service.featured ? 'bg-gradient-to-br from-[#f5f0e8] to-white border-2 border-gold-400' : 'bg-white'}`}
                     >
                         {service.featured && (
                             <div className="absolute -top-3 right-[30px] px-5 py-2 text-[0.75rem] font-semibold 
@@ -89,12 +89,12 @@ const Services = () => {
                         </div>
 
                         <h3 className={`font-[var(--font-display)] text-[1.5rem] font-semibold mb-[15px]
-              ${service.featured ? 'text-white' : 'text-[#1a1a1a]'}`}>
+              ${service.featured ? 'text-[#2a2a2a]' : 'text-[#1a1a1a]'}`}>
                             {service.title}
                         </h3>
 
                         <p className={`text-[0.95rem] leading-[1.7] mb-6
-              ${service.featured ? 'text-white/70' : 'text-[#4a4a4a]'}`}>
+              ${service.featured ? 'text-[#525252]' : 'text-[#4a4a4a]'}`}>
                             {service.description}
                         </p>
 
@@ -104,7 +104,7 @@ const Services = () => {
                                     key={fIndex}
                                     className={`relative pl-6 text-[0.9rem] mb-[10px]
                     before:content-['✓'] before:absolute before:left-0 before:text-gold-500 before:font-semibold
-                    ${service.featured ? 'text-white/80' : 'text-[#4a4a4a]'}`}
+                    ${service.featured ? 'text-[#525252]' : 'text-[#4a4a4a]'}`}
                                 >
                                     {feature}
                                 </li>
@@ -113,11 +113,11 @@ const Services = () => {
 
                         <div className="mb-6">
                             <span className={`block text-[0.8rem] mb-[5px]
-                ${service.featured ? 'text-white/60' : 'text-[#7a7a7a]'}`}>
+                ${service.featured ? 'text-[#8a8a8a]' : 'text-[#7a7a7a]'}`}>
                                 Starting from
                             </span>
                             <span className={`font-[var(--font-display)] text-[2rem] font-semibold
-                ${service.featured ? 'text-gold-400' : 'text-gold-500'}`}>
+                ${service.featured ? 'text-gold-500' : 'text-gold-500'}`}>
                                 {service.price}
                             </span>
                         </div>
@@ -127,7 +127,7 @@ const Services = () => {
                             onClick={scrollToContact}
                             className={`inline-block text-[0.95rem] font-semibold transition-colors duration-200
                 ${service.featured
-                                    ? 'text-gold-400 hover:text-white'
+                                    ? 'text-gold-500 hover:text-gold-600'
                                     : 'text-gold-500 hover:text-gold-600'
                                 }`}
                         >

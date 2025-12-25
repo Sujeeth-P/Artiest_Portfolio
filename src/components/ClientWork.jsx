@@ -38,7 +38,7 @@ const ClientWork = () => {
     ];
 
     return (
-        <section className="py-[120px] px-10 bg-white" id="client-work">
+        <section className="py-[120px] px-10 bg-[#fcf7e7]" id="client-work">
             {/* Section Header */}
             <div className="text-center max-w-[600px] mx-auto mb-[60px]">
                 <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
@@ -58,7 +58,7 @@ const ClientWork = () => {
                 {testimonials.map((testimonial, index) => (
                     <div
                         key={index}
-                        className="min-w-[calc(100%-40px)] md:min-w-[600px] bg-cream-100 rounded-2xl overflow-hidden 
+                        className="min-w-[calc(100%-40px)] md:min-w-[600px] bg-white rounded-2xl overflow-hidden 
               shadow-[0_4px_20px_rgba(0,0,0,0.08)] snap-center flex flex-col md:flex-row"
                     >
                         <div className="w-full md:w-2/5 h-[250px] md:h-auto">
@@ -106,7 +106,7 @@ const ClientWork = () => {
                                 </p>
                             </div>
                             {index < processSteps.length - 1 && (
-                                <div className="hidden lg:block w-[60px] h-[2px] bg-cream-300 mt-8 flex-shrink-0" />
+                                <div className="hidden lg:block w-[60px] h-[2px] bg-[#e8dfd3] mt-8 flex-shrink-0" />
                             )}
                         </div>
                     ))}

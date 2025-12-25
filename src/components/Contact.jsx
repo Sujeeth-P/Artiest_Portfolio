@@ -89,22 +89,22 @@ const Contact = () => {
     ];
 
     return (
-        <section className="relative py-[120px] px-10" id="contact">
+        <section className="relative py-[120px] px-10 bg-[#fcf7e7]" id="contact">
             {/* Background */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-charcoal-800 to-[#1a1a1a]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#fcf7e7] to-[#f5f0e8]" />
             </div>
 
             <div className="relative z-[1] max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-[60px]">
                 {/* Contact Info */}
-                <div className="lg:w-2/5 text-white">
+                <div className="lg:w-2/5">
                     <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
                         Get In Touch
                     </span>
-                    <h2 className="font-[var(--font-display)] text-[clamp(2rem,4vw,3rem)] font-semibold text-white mb-5">
+                    <h2 className="font-[var(--font-display)] text-[clamp(2rem,4vw,3rem)] font-semibold text-[#2a2a2a] mb-5">
                         Ready to Commission <span className="text-gold-500 italic">Your Artwork?</span>
                     </h2>
-                    <p className="text-[1rem] text-white/70 leading-[1.8] mb-10">
+                    <p className="text-[1rem] text-[#525252] leading-[1.8] mb-10">
                         Fill out the form and I'll get back to you within 24-48 hours to discuss your project and provide a
                         personalized quote.
                     </p>
@@ -112,17 +112,17 @@ const Contact = () => {
                     <div className="space-y-6 mb-10">
                         {contactInfo.map((info, index) => (
                             <div key={index} className="flex items-start gap-4">
-                                <div className="w-12 h-12 flex items-center justify-center bg-white/10 rounded-xl text-gold-500">
+                                <div className="w-12 h-12 flex items-center justify-center bg-[#e8dfd3] rounded-xl text-gold-500">
                                     {info.icon}
                                 </div>
                                 <div>
-                                    <span className="block text-[0.85rem] text-white/60 mb-1">{info.label}</span>
+                                    <span className="block text-[0.85rem] text-[#8a8a8a] mb-1">{info.label}</span>
                                     {info.href ? (
-                                        <a href={info.href} className="text-white hover:text-gold-500 transition-colors">
+                                        <a href={info.href} className="text-[#2a2a2a] hover:text-gold-500 transition-colors">
                                             {info.value}
                                         </a>
                                     ) : (
-                                        <span className="text-white">{info.value}</span>
+                                        <span className="text-[#2a2a2a]">{info.value}</span>
                                     )}
                                 </div>
                             </div>
@@ -135,8 +135,8 @@ const Contact = () => {
                                 key={index}
                                 href="#"
                                 aria-label={social.name}
-                                className="w-12 h-12 flex items-center justify-center bg-white/10 rounded-xl text-white
-                  hover:bg-gold-500 hover:-translate-y-1 transition-all duration-300"
+                                className="w-12 h-12 flex items-center justify-center bg-[#e8dfd3] rounded-xl text-[#2a2a2a]
+                  hover:bg-gold-500 hover:text-white hover:-translate-y-1 transition-all duration-300"
                             >
                                 {social.icon}
                             </a>
@@ -271,7 +271,7 @@ const Contact = () => {
                                 type="submit"
                                 disabled={isSubmitting}
                                 className="w-full flex items-center justify-center gap-3 px-8 py-4 text-[0.95rem] font-semibold 
-                  text-white bg-charcoal-800 rounded-xl transition-all duration-400
+                  text-[#2a2a2a] bg-gold-400 rounded-xl transition-all duration-400
                   hover:bg-gold-500 hover:shadow-[0_15px_40px_rgba(185,150,63,0.3)]
                   disabled:opacity-70 disabled:cursor-not-allowed"
                             >

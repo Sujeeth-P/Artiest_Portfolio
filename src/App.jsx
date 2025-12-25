@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
+import ElenaIntro from './components/ElenaIntro';
 import Hero from './components/Hero';
-import Portfolio from './components/Portfolio';
+// import Portfolio from './components/Portfolio';
+import ConversationIntro from './components/ConversationIntro';
+// import WorkShowcase from './components/WorkShowcase';
+import WorksGallery from './components/WorksGallery';
 import Services from './components/Services';
 import ClientWork from './components/ClientWork';
 import About from './components/About';
@@ -13,6 +17,7 @@ import './index.css';
 function App() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedArtwork, setSelectedArtwork] = useState(null);
+  const [introComplete, setIntroComplete] = useState(false);
 
   const handleViewArtwork = (artwork) => {
     setSelectedArtwork(artwork);
@@ -24,11 +29,19 @@ function App() {
     setSelectedArtwork(null);
   };
 
+  const handleIntroComplete = () => {
+    setIntroComplete(true);
+  };
+
   return (
     <>
-      <Navbar />
+      <ElenaIntro onComplete={handleIntroComplete} />
+      {introComplete && <Navbar />}
       <Hero />
-      <Portfolio onViewArtwork={handleViewArtwork} />
+      {/* <Portfolio onViewArtwork={handleViewArtwork} /> */}
+      <ConversationIntro />
+      {/* <WorkShowcase /> */}
+      <WorksGallery onViewArtwork={handleViewArtwork} />
       <Services />
       <ClientWork />
       <About />
@@ -45,3 +58,4 @@ function App() {
 }
 
 export default App;
+
