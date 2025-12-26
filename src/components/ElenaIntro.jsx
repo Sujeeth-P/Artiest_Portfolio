@@ -3,7 +3,7 @@ import gsap from 'gsap';
 
 const ElenaIntro = ({ onComplete }) => {
     const containerRef = useRef(null);
-    const [isComplete, setIsComplete] = useState(false);
+    const [phase, setPhase] = useState('animating'); // 'animating', 'fading', 'done'
 
     useEffect(() => {
         const container = containerRef.current;
@@ -31,13 +31,15 @@ const ElenaIntro = ({ onComplete }) => {
                 ease: 'expo.inOut',
             },
             onComplete: () => {
-                // Fade out the entire intro
+                setPhase('fading');
+
+                // Smooth fade out the entire intro overlay
                 gsap.to(container, {
                     opacity: 0,
                     duration: 0.5,
                     ease: 'power2.inOut',
                     onComplete: () => {
-                        setIsComplete(true);
+                        setPhase('done');
                         document.body.style.overflow = '';
                         if (onComplete) onComplete();
                     }
@@ -86,6 +88,7 @@ const ElenaIntro = ({ onComplete }) => {
 
         // 6. Image expands to full screen
         tl.to(growingImage, {
+            position: 'fixed',
             width: '100vw',
             height: '100vh',
             duration: 1.8
@@ -102,10 +105,15 @@ const ElenaIntro = ({ onComplete }) => {
         };
     }, [onComplete]);
 
-    if (isComplete) return null;
+    // When done, render nothing - Hero is already visible behind
+    if (phase === 'done') return null;
 
     return (
-        <section ref={containerRef} className="elena-header">
+        <section
+            ref={containerRef}
+            className="elena-header"
+            style={{ pointerEvents: phase === 'fading' ? 'none' : 'auto' }}
+        >
             <div className="elena-loader">
                 <div className="elena__h1">
                     {/* Left side letters: E-l-e */}
@@ -120,10 +128,12 @@ const ElenaIntro = ({ onComplete }) => {
                         <div className="elena-loader__box-inner">
                             <div className="elena__growing-image">
                                 <div className="elena__growing-image-wrap">
+                                    {/* Preview images that flash and fade */}
                                     <img className="elena__cover-image-extra is--1" src="/assets/gallery/paons-et-pavots.jpg" alt="" />
                                     <img className="elena__cover-image-extra is--2" src="/assets/gallery/cacatoës-et-magnolia.jpg" alt="" />
                                     <img className="elena__cover-image-extra is--3" src="/assets/gallery/cygne-sauvage.jpg" alt="" />
-                                    <img className="elena__cover-image" src="/assets/gallery/nénuphar.jpg" alt="" />
+                                    {/* Final image - will crossfade smoothly to Hero */}
+                                    <img className="elena__cover-image" src="/assets/gallery/faisans-ordinaires.jpg" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -227,20 +237,20 @@ const ElenaIntro = ({ onComplete }) => {
                 }
 
                 .elena__growing-image-wrap {
-                    width: 100%;
-                    min-width: 1em;
-                    height: 100%;
                     position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
                 }
 
                 .elena__cover-image,
                 .elena__cover-image-extra {
+                    position: absolute;
+                    inset: 0;
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
+                    object-position: center;
                     pointer-events: none;
                     user-select: none;
                 }

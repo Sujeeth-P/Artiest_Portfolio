@@ -224,28 +224,27 @@ const ConversationIntro = () => {
             const leftWrapper = leftCharRef.current?.parentElement;
             const rightWrapper = rightCharRef.current?.parentElement;
 
-            // Reset wrapper positions
+            // Reset wrapper positions (no opacity - let CSS handle it)
             if (leftWrapper) {
                 gsap.to(leftWrapper, {
                     x: 0,
                     y: 0,
                     scale: 1,
-                    opacity: 1,
                     duration: 0.4,
-                    ease: 'power2.out'
+                    ease: 'power2.out',
+                    clearProps: 'opacity' // Clear GSAP opacity so CSS takes over
                 });
             }
 
             gsap.to([leftCharRef.current, rightCharRef.current], {
-                opacity: 1,
                 y: 0,
                 scale: 1,
                 duration: 0.4,
-                ease: 'power2.out'
+                ease: 'power2.out',
+                clearProps: 'opacity' // Clear GSAP opacity so CSS takes over
             });
 
             gsap.to([leftBubbleRef.current, rightBubbleRef.current], {
-                opacity: 1,
                 y: 0,
                 scale: 1,
                 duration: 0.3,
@@ -305,7 +304,7 @@ const ConversationIntro = () => {
             <div className="conv-container">
 
                 {/* LEFT CHARACTER - SOPHIE with thought bubble */}
-                <div className="character-wrapper left-wrapper">
+                <div className={`character-wrapper left-wrapper ${currentMessage?.side !== 'left' ? 'inactive' : ''}`}>
                     <div
                         ref={leftCharRef}
                         className={`character ${currentMessage?.side === 'left' ? 'speaking' : ''}`}
@@ -358,7 +357,7 @@ const ConversationIntro = () => {
                 )}
 
                 {/* RIGHT CHARACTER - MARCUS with thought bubble */}
-                <div className="character-wrapper right-wrapper">
+                <div className={`character-wrapper right-wrapper ${currentMessage?.side !== 'right' ? 'inactive' : ''}`}>
                     {/* Marcus's thought bubble */}
                     <div
                         ref={rightBubbleRef}
@@ -412,7 +411,7 @@ const ConversationIntro = () => {
             <style>{`
                 .conv-section {
                     height: 100vh;
-                    background: #f8f7f4;
+                    background: #fcf7e7;
                     overflow: hidden;
                     position: relative;
                 }
@@ -446,6 +445,24 @@ const ConversationIntro = () => {
                     transform: none;
                 }
 
+                /* Fade entire wrapper (character + bubble) when not speaking */
+                .character-wrapper {
+                    transition: all 0.4s ease;
+                    filter: none;
+                    opacity: 1;
+                }
+
+                .character-wrapper.inactive {
+                    filter: grayscale(0.3);
+                    opacity: 0.5;
+                }
+
+                /* Hide bubbles in inactive wrappers */
+                .character-wrapper.inactive .thought-bubble {
+                    opacity: 0 !important;
+                    visibility: hidden;
+                }
+
                 /* Character */
                 .character {
                     display: flex;
@@ -453,14 +470,6 @@ const ConversationIntro = () => {
                     align-items: center;
                     gap: 12px;
                     transition: all 0.4s ease;
-                }
-
-                .character:not(.speaking) {
-                    filter: grayscale(0.3) opacity(0.5);
-                }
-
-                .character.speaking {
-                    filter: none;
                 }
 
                 .char-image {

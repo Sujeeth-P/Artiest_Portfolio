@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* =====================================================
-   ELENA ROSS ARTIST PORTFOLIO - CUSTOM THEME
-   ===================================================== */
-
 @theme {
   /* Primary Colors - Warm & Elegant */
   --color-cream-50: #fefdfb;
@@ -33,10 +29,13 @@
 /* =====================================================
    BASE STYLES
    ===================================================== */
-html {
+/* html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: theme('colors.gold-500') theme('colors.cream-200');
+} */
+::-webkit-scrollbar {
+  display: none;
 }
 
 ::-webkit-scrollbar {
@@ -57,6 +56,8 @@ body {
   background: #fcf7e7;
   color: #1a1a1a;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* =====================================================
@@ -269,7 +270,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
 }
 
@@ -460,12 +461,17 @@ body {
   padding: 120px 60px 80px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 40px;
 }
 
 /* Text Container */
 .hero-text-container {
   max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Subtitle */
@@ -517,6 +523,36 @@ body {
 }
 
 .hero-title-accent {
+  background: linear-gradient(135deg, theme('colors.gold-400') 0%, #d4af6a 50%, theme('colors.gold-500') 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+
+/* Masked Text Reveal - Osmo Style */
+.hero-masked-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #2a2a2a;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.hero-line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.05em;
+}
+
+.hero-line {
+  display: block;
+  will-change: transform;
+}
+
+.hero-line-accent {
   background: linear-gradient(135deg, theme('colors.gold-400') 0%, #d4af6a 50%, theme('colors.gold-500') 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -596,14 +632,14 @@ body {
 /* Stats */
 .hero-stats {
   display: flex;
+  justify-content: center;
   gap: 48px;
   padding-top: 40px;
-  border-top: 1px solid rgba(42, 42, 42, 0.1);
   margin-top: 20px;
 }
 
 .hero-stat {
-  text-align: left;
+  text-align: center;
   opacity: 0;
   animation: fadeInUp 0.8s ease forwards;
 }
@@ -625,7 +661,7 @@ body {
 .hero-stat-label {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #8a8a8a;
+  /* color: #8a8a8a; */
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
