@@ -4,6 +4,7 @@ import ElenaIntro from './components/ElenaIntro';
 import Hero from './components/Hero';
 // import Portfolio from './components/Portfolio';
 import ConversationIntro from './components/ConversationIntro';
+import GuidedGallery from './components/GuidedGallery';
 // import WorkShowcase from './components/WorkShowcase';
 import WorksGallery from './components/WorksGallery';
 import Services from './components/Services';
@@ -40,6 +41,7 @@ function App() {
       <Hero />
       {/* <Portfolio onViewArtwork={handleViewArtwork} /> */}
       <ConversationIntro />
+      <GuidedGallery />
       {/* <WorkShowcase /> */}
       <WorksGallery onViewArtwork={handleViewArtwork} />
       <Services />
