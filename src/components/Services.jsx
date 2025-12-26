@@ -1,4 +1,40 @@
+import { useRef, useEffect, useState } from 'react';
+import { gsap } from 'gsap';
+
 const Services = () => {
+    const wrapperRef = useRef(null);
+    const navRef = useRef(null);
+    const bgRef = useRef(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    const services = [
+        {
+            title: 'Custom Portraits',
+            heading: 'Timeless Portraits',
+            description: 'Capture the essence of your loved ones with a beautifully crafted portrait. Perfect for gifts, memorials, or personal collections.',
+            features: ['Individual & Family Portraits', 'Pet Portraits', 'Memorial Paintings', 'Work from Photos'],
+            price: '$800',
+            image: '/assets/portrait_artwork.png'
+        },
+        {
+            title: 'Custom Paintings',
+            heading: 'Bespoke Artworks',
+            description: 'Commission a unique artwork tailored to your space and style. From abstract to realism, I create pieces that speak to you.',
+            features: ['Any Size & Style', 'Interior Design Matching', 'Corporate Art', 'Multiple Revisions'],
+            price: '$1,200',
+            image: '/assets/landscape_painting.png'
+        },
+        {
+            title: 'Illustration & Design',
+            heading: 'Creative Illustrations',
+            description: 'Professional illustrations for books, branding, events, and more. High-quality artwork for commercial and personal use.',
+            features: ['Book Covers & Interiors', 'Wedding Invitations', 'Brand Illustrations', 'Digital & Print Ready'],
+            price: '$500',
+            image: '/assets/abstract_art.png'
+        }
+    ];
+
     const scrollToContact = (e) => {
         e.preventDefault();
         const target = document.querySelector('#contact');
@@ -7,134 +43,224 @@ const Services = () => {
         }
     };
 
-    const services = [
-        {
-            icon: (
-                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="32" cy="24" r="12" />
-                    <path d="M16 56c0-8.837 7.163-16 16-16s16 7.163 16 16" />
-                </svg>
-            ),
-            title: 'Custom Portraits',
-            description: 'Capture the essence of your loved ones with a beautifully crafted portrait. Perfect for gifts, memorials, or personal collections.',
-            features: ['Individual & Family Portraits', 'Pet Portraits', 'Memorial Paintings', 'Work from Photos'],
-            price: '$800',
-            featured: false
-        },
-        {
-            icon: (
-                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="8" y="12" width="48" height="40" rx="2" />
-                    <path d="M8 36l16-12 12 8 20-16" />
-                    <circle cx="44" cy="24" r="4" />
-                </svg>
-            ),
-            title: 'Custom Paintings',
-            description: 'Commission a unique artwork tailored to your space and style. From abstract to realism, I create pieces that speak to you.',
-            features: ['Any Size & Style', 'Interior Design Matching', 'Corporate Art', 'Multiple Revisions'],
-            price: '$1,200',
-            featured: true
-        },
-        {
-            icon: (
-                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="12" y="8" width="40" height="48" rx="2" />
-                    <path d="M20 20h24M20 28h24M20 36h16M20 44h20" />
-                </svg>
-            ),
-            title: 'Illustration & Design',
-            description: 'Professional illustrations for books, branding, events, and more. High-quality artwork for commercial and personal use.',
-            features: ['Book Covers & Interiors', 'Wedding Invitations', 'Brand Illustrations', 'Digital & Print Ready'],
-            price: '$500',
-            featured: false
-        }
-    ];
+    // Initialize GSAP animations
+    useEffect(() => {
+        gsap.registerPlugin();
+
+        // Create custom ease
+        gsap.config({ force3D: true });
+    }, []);
+
+    // Handle Flip button animations
+    useEffect(() => {
+        const wrapper = navRef.current;
+        const bg = bgRef.current;
+        if (!wrapper || !bg) return;
+
+        const buttons = wrapper.querySelectorAll('.service-tab-button');
+
+        const handleMouseEnter = (button) => {
+            const state = {
+                x: bg.offsetLeft,
+                y: bg.offsetTop,
+                width: bg.offsetWidth,
+                height: bg.offsetHeight
+            };
+            button.appendChild(bg);
+
+            gsap.fromTo(bg,
+                {
+                    x: state.x - bg.offsetLeft,
+                    y: state.y - bg.offsetTop,
+                    width: state.width,
+                    height: state.height
+                },
+                {
+                    x: 0,
+                    y: 0,
+                    width: '100%',
+                    height: '100%',
+                    duration: 0.4,
+                    ease: 'power2.out'
+                }
+            );
+        };
+
+        const handleMouseLeave = () => {
+            const activeButton = wrapper.querySelector('.service-tab-button.active');
+            if (activeButton && bg.parentElement !== activeButton) {
+                const state = {
+                    x: bg.offsetLeft,
+                    y: bg.offsetTop
+                };
+                activeButton.appendChild(bg);
+
+                gsap.fromTo(bg,
+                    {
+                        x: state.x - bg.offsetLeft,
+                        y: state.y - bg.offsetTop
+                    },
+                    {
+                        x: 0,
+                        y: 0,
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    }
+                );
+            }
+        };
+
+        buttons.forEach((button) => {
+            button.addEventListener('mouseenter', () => handleMouseEnter(button));
+            button.addEventListener('mouseleave', handleMouseLeave);
+        });
+
+        return () => {
+            buttons.forEach((button) => {
+                button.removeEventListener('mouseenter', () => handleMouseEnter(button));
+                button.removeEventListener('mouseleave', handleMouseLeave);
+            });
+        };
+    }, [activeIndex]);
+
+    // Handle tab switching with animations
+    const switchTab = (index) => {
+        if (isAnimating || index === activeIndex) return;
+        setIsAnimating(true);
+
+        const wrapper = wrapperRef.current;
+        const outgoingContent = wrapper.querySelector('.service-content-item.active');
+        const incomingContent = wrapper.querySelectorAll('.service-content-item')[index];
+        const outgoingVisual = wrapper.querySelector('.service-visual-item.active');
+        const incomingVisual = wrapper.querySelectorAll('.service-visual-item')[index];
+
+        const outgoingLines = outgoingContent?.querySelectorAll('.fade-element') || [];
+        const incomingLines = incomingContent?.querySelectorAll('.fade-element') || [];
+
+        const timeline = gsap.timeline({
+            defaults: { ease: 'power3.inOut' },
+            onComplete: () => {
+                outgoingContent?.classList.remove('active');
+                outgoingVisual?.classList.remove('active');
+                setActiveIndex(index);
+                setIsAnimating(false);
+            }
+        });
+
+        incomingContent?.classList.add('active');
+        incomingVisual?.classList.add('active');
+
+        timeline
+            .to(outgoingLines, { y: '-2em', autoAlpha: 0, duration: 0.4 }, 0)
+            .to(outgoingVisual, { autoAlpha: 0, xPercent: 3, duration: 0.5 }, 0)
+            .fromTo(incomingLines,
+                { y: '2em', autoAlpha: 0 },
+                { y: '0em', autoAlpha: 1, stagger: 0.075, duration: 0.5 },
+                0.4
+            )
+            .fromTo(incomingVisual,
+                { autoAlpha: 0, xPercent: 3 },
+                { autoAlpha: 1, xPercent: 0, duration: 0.6 },
+                0.35
+            );
+    };
 
     return (
-        <section className="py-[120px] px-10 bg-[#fcf7e7]" id="services">
-            {/* Section Header */}
-            <div className="text-center max-w-[600px] mx-auto mb-[60px]">
-                <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
-                    What I Offer
-                </span>
-                <h2 className="font-[var(--font-display)] text-[clamp(2rem,4vw,3rem)] font-semibold text-[#1a1a1a] mb-5">
-                    Commission <span className="text-gold-500 italic">Services</span>
-                </h2>
-                <p className="text-[1.05rem] text-[#4a4a4a] leading-[1.7]">
-                    From personalized portraits to custom paintings, I bring your artistic vision to life
-                </p>
-            </div>
+        <section className="services-tab-section" id="services">
+            <div className="services-tab-wrapper" ref={wrapperRef}>
+                <div className="services-tab-layout">
+                    {/* Left Column - Content */}
+                    <div className="services-tab-col services-tab-col-left">
+                        <div className="services-tab-container">
+                            {/* Top Section - Header & Tabs */}
+                            <div className="services-tab-top">
+                                <div className="services-header">
+                                    <span className="services-label">What I Offer</span>
+                                    <h2 className="services-heading">
+                                        Commission <span className="services-heading-accent">Services</span>
+                                    </h2>
+                                </div>
+                                <h1 className="services-tab-main-heading">
+                                    Explore the Layers of Abstract Design and Depth
+                                </h1>
 
-            {/* Services Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30px] max-w-[1200px] mx-auto">
-                {services.map((service, index) => (
-                    <div
-                        key={index}
-                        className={`relative p-10 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] 
-              transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
-              hover:-translate-y-[10px] hover:shadow-[0_20px_60px_rgba(0,0,0,0.15)]
-              ${service.featured ? 'bg-gradient-to-br from-[#f5f0e8] to-white border-2 border-gold-400' : 'bg-white'}`}
-                    >
-                        {service.featured && (
-                            <div className="absolute -top-3 right-[30px] px-5 py-2 text-[0.75rem] font-semibold 
-                tracking-[1px] uppercase text-white bg-gold-500 rounded-[20px]">
-                                Most Popular
+                                {/* Tab Navigation */}
+                                <div className="services-filter-bar" ref={navRef}>
+                                    {services.map((service, index) => (
+                                        <button
+                                            key={index}
+                                            className={`service-tab-button ${index === activeIndex ? 'active' : ''}`}
+                                            onClick={() => switchTab(index)}
+                                        >
+                                            <span className="service-tab-button-text">{service.title}</span>
+                                            {index === activeIndex && (
+                                                <div className="service-tab-bg" ref={bgRef}></div>
+                                            )}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        )}
 
-                        <div className="w-[70px] h-[70px] mb-6">
-                            <div className="w-full h-full [&>svg]:w-full [&>svg]:h-full [&>svg]:stroke-gold-500">
-                                {service.icon}
-                            </div>
-                        </div>
-
-                        <h3 className={`font-[var(--font-display)] text-[1.5rem] font-semibold mb-[15px]
-              ${service.featured ? 'text-[#2a2a2a]' : 'text-[#1a1a1a]'}`}>
-                            {service.title}
-                        </h3>
-
-                        <p className={`text-[0.95rem] leading-[1.7] mb-6
-              ${service.featured ? 'text-[#525252]' : 'text-[#4a4a4a]'}`}>
-                            {service.description}
-                        </p>
-
-                        <ul className="list-none mb-[30px]">
-                            {service.features.map((feature, fIndex) => (
-                                <li
-                                    key={fIndex}
-                                    className={`relative pl-6 text-[0.9rem] mb-[10px]
-                    before:content-['✓'] before:absolute before:left-0 before:text-gold-500 before:font-semibold
-                    ${service.featured ? 'text-[#525252]' : 'text-[#4a4a4a]'}`}
+                            {/* Bottom Section - Content Items */}
+                            <div className="services-tab-bottom">
+                                <div className="services-content-wrap">
+                                    {services.map((service, index) => (
+                                        <div
+                                            key={index}
+                                            className={`service-content-item ${index === activeIndex ? 'active' : ''}`}
+                                        >
+                                            <h2 className="service-content-heading fade-element">
+                                                {service.heading}
+                                            </h2>
+                                            <p className="service-content-description fade-element">
+                                                {service.description}
+                                            </p>
+                                            <ul className="service-features fade-element">
+                                                {service.features.map((feature, fIndex) => (
+                                                    <li key={fIndex} className="service-feature-item">
+                                                        <span className="feature-check">✓</span>
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            <div className="service-price-wrap fade-element">
+                                                <span className="service-price-label">Starting from</span>
+                                                <span className="service-price">{service.price}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <a
+                                    href="#contact"
+                                    onClick={scrollToContact}
+                                    className="service-cta-button"
                                 >
-                                    {feature}
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div className="mb-6">
-                            <span className={`block text-[0.8rem] mb-[5px]
-                ${service.featured ? 'text-[#8a8a8a]' : 'text-[#7a7a7a]'}`}>
-                                Starting from
-                            </span>
-                            <span className={`font-[var(--font-display)] text-[2rem] font-semibold
-                ${service.featured ? 'text-gold-500' : 'text-gold-500'}`}>
-                                {service.price}
-                            </span>
+                                    <span>Request a Quote</span>
+                                    <div className="service-cta-bg"></div>
+                                </a>
+                            </div>
                         </div>
-
-                        <a
-                            href="#contact"
-                            onClick={scrollToContact}
-                            className={`inline-block text-[0.95rem] font-semibold transition-colors duration-200
-                ${service.featured
-                                    ? 'text-gold-500 hover:text-gold-600'
-                                    : 'text-gold-500 hover:text-gold-600'
-                                }`}
-                        >
-                            Request Quote →
-                        </a>
                     </div>
-                ))}
+
+                    {/* Right Column - Visuals */}
+                    <div className="services-tab-col services-tab-col-right">
+                        <div className="services-visual-wrap">
+                            {services.map((service, index) => (
+                                <div
+                                    key={index}
+                                    className={`service-visual-item ${index === activeIndex ? 'active' : ''}`}
+                                >
+                                    <img
+                                        src={service.image}
+                                        alt={service.title}
+                                        className="service-visual-image"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     );
