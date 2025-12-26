@@ -7,9 +7,8 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 100);
+            setScrolled(window.scrollY > 50);
 
-            // Update active nav link based on scroll position
             const sections = document.querySelectorAll('section[id]');
             const scrollPosition = window.scrollY + 200;
 
@@ -45,93 +44,125 @@ const Navbar = () => {
         { href: '#home', label: 'Home' },
         { href: '#portfolio', label: 'Portfolio' },
         { href: '#services', label: 'Services' },
-        { href: '#client-work', label: 'Client Work' },
+        { href: '#client-work', label: 'Work' },
         { href: '#about', label: 'About' }
     ];
 
     return (
-        <nav
-            className={`fixed top-0 left-0 right-0 z-[1000] py-5 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
-        ${scrolled ? 'bg-white/95 backdrop-blur-[10px] shadow-[0_4px_20px_rgba(0,0,0,0.08)] py-[15px]' : ''}`}
+        <nav className={`fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-500
+            ${scrolled ? 'pt-3' : 'pt-5'}`}
         >
-            <div className="max-w-[1400px] mx-auto px-10 flex items-center justify-between">
-                {/* Logo */}
+            {/* Floating Pill Container - Centered */}
+            <div className={`inline-flex items-center gap-2 transition-all duration-500
+                bg-[#3a3632] rounded-full pl-2 pr-2 py-2
+                shadow-[0_4px_24px_rgba(0,0,0,0.15)]
+                ${scrolled ? 'shadow-[0_8px_32px_rgba(0,0,0,0.2)]' : ''}`}
+            >
+                {/* Logo - Pentagon shape with gold gradient */}
                 <a
                     href="#home"
                     onClick={(e) => scrollToSection(e, '#home')}
-                    className="flex flex-col"
+                    className="relative flex items-center justify-center w-10 h-10 
+                        bg-gradient-to-br from-[#c9a961] to-[#b8963f] 
+                        hover:from-[#d4af6a] hover:to-[#c9a961]
+                        transition-all duration-300 group"
+                    style={{
+                        clipPath: 'polygon(20% 0%, 100% 0%, 100% 100%, 20% 100%, 0% 50%)'
+                    }}
                 >
-                    <span className="font-[var(--font-display)] text-[1.8rem] font-semibold text-[#1a1a1a] tracking-[1px]">
-                        Elena Ross
-                    </span>
-                    <span className="text-[0.7rem] font-medium tracking-[3px] uppercase text-gold-500">
-                        Fine Art
+                    <span className="font-[var(--font-display)] text-[1.2rem] font-bold text-[#2a2a2a] 
+                        group-hover:scale-110 transition-transform duration-300 ml-1">
+                        E
                     </span>
                 </a>
 
-                {/* Navigation Menu */}
-                <ul
-                    className={`flex gap-10 list-none md:flex
-            max-md:absolute max-md:top-full max-md:left-0 max-md:right-0 max-md:bg-white max-md:p-5 
-            max-md:flex-col max-md:gap-5 max-md:shadow-[0_10px_30px_rgba(0,0,0,0.1)]
-            max-md:transition-all max-md:duration-300 max-md:ease-out
-            ${mobileMenuOpen
-                            ? 'max-md:opacity-100 max-md:visible max-md:translate-y-0'
-                            : 'max-md:opacity-0 max-md:invisible max-md:-translate-y-5'
-                        }`}
-                >
+                {/* Navigation Links - Clean minimal style */}
+                <div className="hidden md:flex items-center gap-0.5 px-2">
                     {navLinks.map(link => (
-                        <li key={link.href}>
-                            <a
-                                href={link.href}
-                                onClick={(e) => scrollToSection(e, link.href)}
-                                className={`text-[0.9rem] font-medium relative py-[5px] transition-colors duration-200
-                  ${activeSection === link.href.slice(1)
-                                        ? 'text-[#1a1a1a] after:w-full'
-                                        : 'text-[#4a4a4a] hover:text-[#1a1a1a] after:w-0 hover:after:w-full'
-                                    }
-                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] 
-                  after:bg-gold-500 after:transition-all after:duration-400 after:ease-[cubic-bezier(0.4,0,0.2,1)]`}
-                            >
-                                {link.label}
-                            </a>
-                        </li>
+                        <a
+                            key={link.href}
+                            href={link.href}
+                            onClick={(e) => scrollToSection(e, link.href)}
+                            className={`px-4 py-2 text-[0.82rem] font-medium rounded-full
+                                transition-all duration-300
+                                ${activeSection === link.href.slice(1)
+                                    ? 'text-[#c9a961] bg-[#c9a961]/15'
+                                    : 'text-[#e8e4dc] hover:text-white'
+                                }`}
+                        >
+                            {link.label}
+                        </a>
                     ))}
-                </ul>
+                </div>
 
-                {/* CTA Button */}
+                {/* CTA Button - Gold with rounded pill shape */}
                 <a
                     href="#contact"
                     onClick={(e) => scrollToSection(e, '#contact')}
-                    className="hidden md:flex items-center gap-2 px-7 py-3 text-[0.85rem] font-semibold text-[#2a2a2a] 
-            bg-gold-400 rounded-[30px] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
-            hover:bg-gold-500 hover:-translate-y-[2px] hover:shadow-[0_10px_30px_rgba(185,150,63,0.3)]"
+                    className="hidden md:flex items-center gap-2 px-5 py-2.5 ml-1
+                        text-[0.82rem] font-semibold text-[#2a2a2a] 
+                        bg-gradient-to-r from-[#c9a961] to-[#d4af6a] rounded-full
+                        border-2 border-[#c9a961]/30
+                        transition-all duration-300
+                        hover:from-[#d4af6a] hover:to-[#c9a961] 
+                        hover:shadow-[0_4px_20px_rgba(185,150,63,0.4)]"
                 >
-                    <span>Commission Art</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
+                    Commission Art
                 </a>
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden flex flex-col gap-[5px] p-[10px]"
+                    className="md:hidden flex flex-col gap-[5px] p-2.5 rounded-full 
+                        bg-[#c9a961]/20 hover:bg-[#c9a961]/30 transition-colors duration-200"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle menu"
                 >
-                    <span
-                        className={`w-[25px] h-[2px] bg-[#1a1a1a] transition-transform duration-200
-              ${mobileMenuOpen ? 'rotate-45 translate-x-[5px] translate-y-[5px]' : ''}`}
-                    />
-                    <span
-                        className={`w-[25px] h-[2px] bg-[#1a1a1a] transition-opacity duration-200
-              ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}
-                    />
-                    <span
-                        className={`w-[25px] h-[2px] bg-[#1a1a1a] transition-transform duration-200
-              ${mobileMenuOpen ? '-rotate-45 translate-x-[5px] -translate-y-[5px]' : ''}`}
-                    />
+                    <span className={`w-5 h-[2px] bg-[#e8e4dc] transition-all duration-300 origin-center
+                        ${mobileMenuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+                    <span className={`w-5 h-[2px] bg-[#e8e4dc] transition-all duration-300
+                        ${mobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100'}`} />
+                    <span className={`w-5 h-[2px] bg-[#e8e4dc] transition-all duration-300 origin-center
+                        ${mobileMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
                 </button>
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            <div className={`md:hidden fixed left-4 right-4 top-20 bg-[#3a3632]/98 backdrop-blur-xl 
+                rounded-2xl overflow-hidden border border-[#c9a961]/20
+                transition-all duration-400 shadow-[0_16px_48px_rgba(0,0,0,0.25)]
+                ${mobileMenuOpen
+                    ? 'opacity-100 visible translate-y-0'
+                    : 'opacity-0 invisible -translate-y-4 pointer-events-none'
+                }`}
+            >
+                <div className="p-4 flex flex-col gap-1">
+                    {navLinks.map(link => (
+                        <a
+                            key={link.href}
+                            href={link.href}
+                            onClick={(e) => scrollToSection(e, link.href)}
+                            className={`block px-4 py-3 text-[0.95rem] font-medium rounded-xl
+                                transition-all duration-200
+                                ${activeSection === link.href.slice(1)
+                                    ? 'text-[#2a2a2a] bg-gradient-to-r from-[#c9a961] to-[#d4af6a]'
+                                    : 'text-[#e8e4dc]/80 hover:text-[#e8e4dc] hover:bg-white/10'
+                                }`}
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                    <div className="mt-2 pt-2 border-t border-[#c9a961]/20">
+                        <a
+                            href="#contact"
+                            onClick={(e) => scrollToSection(e, '#contact')}
+                            className="flex items-center justify-center gap-2 px-4 py-3 text-[0.95rem] 
+                                font-semibold text-[#2a2a2a] bg-gradient-to-r from-[#c9a961] to-[#d4af6a] rounded-xl
+                                hover:from-[#d4af6a] hover:to-[#c9a961] transition-all duration-200"
+                        >
+                            Commission Art
+                        </a>
+                    </div>
+                </div>
             </div>
         </nav>
     );
