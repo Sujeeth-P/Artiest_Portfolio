@@ -85,14 +85,28 @@ const ElenaIntro = ({ onComplete }) => {
             ease: 'none',
             stagger: 0.4
         }, '-=0.1');
+tl.add(() => {
+    const rect = growingImage.getBoundingClientRect();
 
-        // 6. Image expands to full screen
-        tl.to(growingImage, {
-            position: 'fixed',
-            width: '100vw',
-            height: '100vh',
-            duration: 1.8
-        }, '+=0.3');
+    gsap.set(growingImage, {
+        position: 'fixed',
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+        x: 0,
+        y: 0
+    });
+});
+
+tl.to(growingImage, {
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    duration: 1.8,
+    ease: 'expo.inOut'
+}, '+=0.3');
 
         // 7. Box also expands
         tl.to(box, {

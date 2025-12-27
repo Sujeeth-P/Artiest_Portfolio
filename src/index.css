@@ -51,7 +51,7 @@
   border-radius: 4px;
 }
 
-body {
+html,body {
   font-family: var(--font-body);
   background: #fcf7e7;
   color: #1a1a1a;
