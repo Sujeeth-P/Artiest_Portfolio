@@ -36,9 +36,17 @@ function App() {
 
   return (
     <>
-      <ElenaIntro onComplete={handleIntroComplete} />
-      {introComplete && <Navbar />}
-      <Hero />
+    {!introComplete && (
+  <ElenaIntro onComplete={handleIntroComplete} />
+)}
+
+<Navbar />
+
+<Hero />
+
+      {/* <ElenaIntro onComplete={handleIntroComplete} />
+      <Navbar/>
+      <Hero /> */}
       {/* <Portfolio onViewArtwork={handleViewArtwork} /> */}
       <ConversationIntro />
       <GuidedGallery />

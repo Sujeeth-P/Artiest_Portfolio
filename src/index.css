@@ -51,7 +51,8 @@
   border-radius: 4px;
 }
 
-html,body {
+html,
+body {
   font-family: var(--font-body);
   background: #fcf7e7;
   color: #1a1a1a;
@@ -485,9 +486,6 @@ html,body {
   text-transform: uppercase;
   color: theme('colors.gold-400');
   margin-bottom: 24px;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease forwards;
-  animation-delay: 0.3s;
 }
 
 .hero-subtitle-line {
@@ -564,12 +562,10 @@ html,body {
 .hero-description {
   font-size: 1.125rem;
   line-height: 1.8;
-  color: #525252;
+  color: #2a2a2a;
+  padding-top: 10px;
   margin-bottom: 40px;
   max-width: 500px;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease forwards;
-  animation-delay: 0.9s;
 }
 
 /* CTA Buttons */
@@ -1086,6 +1082,7 @@ html,body {
   width: 100%;
   min-width: 24em;
   min-height: 16em;
+  margin-top: 2.5em;
 }
 
 .service-content-item {
@@ -1107,11 +1104,14 @@ html,body {
 .service-content-heading {
   font-family: var(--font-display);
   font-size: 1.75em;
-  font-weight: 500;
+  font-weight: 600;
   color: #1a1a1a;
   margin: 0;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .service-content-description {

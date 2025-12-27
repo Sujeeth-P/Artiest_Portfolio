@@ -58,8 +58,16 @@ const Services = () => {
         if (!wrapper || !bg) return;
 
         const buttons = wrapper.querySelectorAll('.service-tab-button');
+        const activeButton = buttons[activeIndex];
+
+        // Move bg to active button on mount/change
+        if (activeButton && bg.parentElement !== activeButton) {
+            activeButton.appendChild(bg);
+            gsap.set(bg, { x: 0, y: 0, width: '100%', height: '100%' });
+        }
 
         const handleMouseEnter = (button) => {
+            if (!bg) return;
             const state = {
                 x: bg.offsetLeft,
                 y: bg.offsetTop,
@@ -87,13 +95,14 @@ const Services = () => {
         };
 
         const handleMouseLeave = () => {
-            const activeButton = wrapper.querySelector('.service-tab-button.active');
-            if (activeButton && bg.parentElement !== activeButton) {
+            if (!bg) return;
+            const currentActiveButton = wrapper.querySelector('.service-tab-button.active');
+            if (currentActiveButton && bg.parentElement !== currentActiveButton) {
                 const state = {
                     x: bg.offsetLeft,
                     y: bg.offsetTop
                 };
-                activeButton.appendChild(bg);
+                currentActiveButton.appendChild(bg);
 
                 gsap.fromTo(bg,
                     {
@@ -188,12 +197,12 @@ const Services = () => {
                                 <div className="services-filter-bar" ref={navRef}>
                                     {services.map((service, index) => (
                                         <button
-                                            key={index}
+                                            key={service.title}
                                             className={`service-tab-button ${index === activeIndex ? 'active' : ''}`}
                                             onClick={() => switchTab(index)}
                                         >
                                             <span className="service-tab-button-text">{service.title}</span>
-                                            {index === activeIndex && (
+                                            {index === 0 && (
                                                 <div className="service-tab-bg" ref={bgRef}></div>
                                             )}
                                         </button>
