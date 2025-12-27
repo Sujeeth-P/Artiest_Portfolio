@@ -177,18 +177,20 @@ const Services = () => {
     return (
         <section className="services-tab-section" id="services">
             <div className="services-tab-wrapper" ref={wrapperRef}>
+                {/* Centered Header - Above columns */}
+                <div className="services-header">
+                    <span className="services-label">What I Offer</span>
+                    <h2 className="services-heading">
+                        Commission <span className="services-heading-accent">Services</span>
+                    </h2>
+                </div>
+
                 <div className="services-tab-layout">
                     {/* Left Column - Content */}
                     <div className="services-tab-col services-tab-col-left">
                         <div className="services-tab-container">
-                            {/* Top Section - Header & Tabs */}
+                            {/* Top Section - Main Heading & Tabs */}
                             <div className="services-tab-top">
-                                <div className="services-header">
-                                    <span className="services-label">What I Offer</span>
-                                    <h2 className="services-heading">
-                                        Commission <span className="services-heading-accent">Services</span>
-                                    </h2>
-                                </div>
                                 <h1 className="services-tab-main-heading">
                                     Explore the Layers of Abstract Design and Depth
                                 </h1>

@@ -1,4 +1,10 @@
 import { useState, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register plugins
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -31,10 +37,14 @@ const Navbar = () => {
         e.preventDefault();
         const target = document.querySelector(sectionId);
         if (target) {
-            const offsetTop = target.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
+            // Use GSAP scrollTo which properly handles ScrollTrigger pins
+            gsap.to(window, {
+                duration: 1,
+                scrollTo: {
+                    y: target,
+                    offsetY: 80
+                },
+                ease: 'power2.inOut'
             });
         }
         setMobileMenuOpen(false);
