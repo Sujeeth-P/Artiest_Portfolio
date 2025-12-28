@@ -222,6 +222,222 @@ body {
 }
 
 /* =====================================================
+   SCROLL-DRIVEN SECTION ANIMATIONS
+   Simple fade/slide effects (Chrome 115+, Edge 115+)
+   Non-conflicting with existing GSAP animations
+   ===================================================== */
+
+/* Keyframes for section fade-in */
+@keyframes section-fade-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Apply to sections that should animate on scroll */
+section.scroll-animate {
+  animation: section-fade-slide ease-out both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}
+
+/* Utility classes for individual elements */
+.fade-on-scroll {
+  animation: section-fade-slide ease-out both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 40%;
+}
+
+/* Staggered children animation */
+.stagger-on-scroll>*:nth-child(1) {
+  animation-range: entry 0% entry 35%;
+}
+
+.stagger-on-scroll>*:nth-child(2) {
+  animation-range: entry 5% entry 40%;
+}
+
+.stagger-on-scroll>*:nth-child(3) {
+  animation-range: entry 10% entry 45%;
+}
+
+.stagger-on-scroll>*:nth-child(4) {
+  animation-range: entry 15% entry 50%;
+}
+
+.stagger-on-scroll>*:nth-child(5) {
+  animation-range: entry 20% entry 55%;
+}
+
+.stagger-on-scroll>*:nth-child(6) {
+  animation-range: entry 25% entry 60%;
+}
+
+.stagger-on-scroll>* {
+  animation: section-fade-slide ease-out both;
+  animation-timeline: view();
+}
+
+/* Card/item entrance effect */
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-animate {
+  animation: card-entrance 0.6s ease-out both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
+}
+
+/* Slide from left */
+@keyframes slide-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-left-on-scroll {
+  animation: slide-from-left ease-out both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 40%;
+}
+
+/* Slide from right */
+@keyframes slide-from-right {
+  0% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-right-on-scroll {
+  animation: slide-from-right ease-out both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 40%;
+}
+
+/* =====================================================
+   PROCESS STEPS ANIMATION (How Commissions Work)
+   ===================================================== */
+.process-steps-container {
+  position: relative;
+}
+
+.process-step-item {
+  position: relative;
+}
+
+/* Circle pop animation */
+.process-step-circle {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.process-step-item.scroll-animated .process-step-circle {
+  animation: circle-pop 0.5s ease-out forwards;
+}
+
+@keyframes circle-pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Animated connecting line */
+.process-step-line {
+  position: relative;
+  overflow: hidden;
+  background: #e8dfd3;
+}
+
+.process-step-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #c9a961, #d4af6a);
+  transition: width 0.6s ease-out;
+}
+
+.process-step-item.scroll-animated .process-step-line::after {
+  width: 100%;
+}
+
+/* Staggered animation delays via CSS */
+.process-step-item:nth-child(1) .process-step-line::after {
+  transition-delay: 0.2s;
+}
+
+.process-step-item:nth-child(2) .process-step-line::after {
+  transition-delay: 0.4s;
+}
+
+.process-step-item:nth-child(3) .process-step-line::after {
+  transition-delay: 0.6s;
+}
+
+/* Accessibility: Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  section.scroll-animate,
+  .fade-on-scroll,
+  .stagger-on-scroll>*,
+  .card-animate,
+  .slide-left-on-scroll,
+  .slide-right-on-scroll,
+  .process-step-item,
+  .process-step-circle {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .process-step-line::after {
+    width: 100% !important;
+    transition: none !important;
+  }
+}
+
+/* =====================================================
    LIGHTBOX
    ===================================================== */
 .lightbox {
@@ -1117,7 +1333,7 @@ body {
   font-size: 2.5em;
   font-weight: 500;
   color: #1a1a1a;
-  margin: 0;
+  margin-bottom: 30px;
 }
 
 .services-heading-accent {
@@ -1131,7 +1347,7 @@ body {
   font-weight: 500;
   line-height: 1.1;
   color: #1a1a1a;
-  margin: 0 0 1.5em 0;
+  margin: 0 0 0.65em 0;
   letter-spacing: -0.02em;
 }
 
@@ -1205,7 +1421,7 @@ body {
   width: 100%;
   min-width: 24em;
   min-height: 16em;
-  margin-top: 2.5em;
+  margin-top: 3.0em;
 }
 
 .service-content-item {
@@ -1269,12 +1485,21 @@ body {
   font-size: 1em;
 }
 
+/* Price and CTA Row */
+.service-price-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2em;
+  margin-top: 1em;
+  width: 100%;
+}
+
 /* Price Section */
 .service-price-wrap {
   display: flex;
   flex-direction: column;
   gap: 0.25em;
-  margin-top: 0.5em;
 }
 
 .service-price-label {
@@ -1434,6 +1659,7 @@ body {
 
   .services-tab-main-heading {
     font-size: 2.5em;
+    bottom: 0;
   }
 
   .services-filter-bar {

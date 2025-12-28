@@ -97,7 +97,7 @@ const Contact = () => {
 
             <div className="relative z-[1] max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-[60px]">
                 {/* Contact Info */}
-                <div className="lg:w-2/5">
+                <div className="lg:w-2/5" data-animate="fade-left">
                     <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
                         Get In Touch
                     </span>
@@ -145,7 +145,7 @@ const Contact = () => {
                 </div>
 
                 {/* Contact Form */}
-                <div className="lg:w-3/5">
+                <div className="lg:w-3/5" data-animate="fade-right">
                     {!isSubmitted ? (
                         <form onSubmit={handleSubmit} className="bg-white p-10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

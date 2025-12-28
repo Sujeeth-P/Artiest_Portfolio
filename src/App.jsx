@@ -14,6 +14,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Lightbox from './components/Lightbox';
+import { initScrollAnimations } from './components/ui/scroll-reveal';
 import './index.css';
 
 // Register GSAP plugins
@@ -26,6 +27,16 @@ function App() {
   const [introComplete, setIntroComplete] = useState(() => {
     return window.location.hash && window.location.hash !== '#home';
   });
+
+  // Initialize scroll animations after intro is complete
+  useEffect(() => {
+    if (introComplete) {
+      // Delay to let DOM update
+      setTimeout(() => {
+        initScrollAnimations();
+      }, 100);
+    }
+  }, [introComplete]);
 
   // Scroll to hash section after page loads (if intro is skipped)
   useEffect(() => {

@@ -40,7 +40,7 @@ const ClientWork = () => {
     return (
         <section className="py-[120px] px-10 bg-[#fcf7e7]" id="client-work">
             {/* Section Header */}
-            <div className="text-center max-w-[600px] mx-auto mb-[60px]">
+            <div className="text-center max-w-[600px] mx-auto mb-[60px]" data-animate="fade-up">
                 <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
                     Success Stories
                 </span>
@@ -60,6 +60,8 @@ const ClientWork = () => {
                         key={index}
                         className="min-w-[calc(100%-40px)] md:min-w-[600px] bg-white rounded-2xl overflow-hidden 
               shadow-[0_4px_20px_rgba(0,0,0,0.08)] snap-center flex flex-col md:flex-row"
+                        data-animate={index % 2 === 0 ? 'fade-left' : 'fade-right'}
+                        data-delay={index * 150}
                     >
                         <div className="w-full md:w-2/5 h-[250px] md:h-auto">
                             <img
@@ -86,14 +88,19 @@ const ClientWork = () => {
 
             {/* Process Section */}
             <div className="mt-[100px] max-w-[1200px] mx-auto">
-                <h3 className="font-[var(--font-display)] text-[1.8rem] font-semibold text-[#1a1a1a] text-center mb-[50px]">
+                <h3 className="font-[var(--font-display)] text-[1.8rem] font-semibold text-[#1a1a1a] text-center mb-[50px]" data-animate="fade-up">
                     How Commissions Work
                 </h3>
-                <div className="flex flex-wrap justify-center items-start gap-0">
+                <div className="flex flex-wrap justify-center items-start gap-0 process-steps-container">
                     {processSteps.map((step, index) => (
-                        <div key={index} className="flex items-start">
+                        <div
+                            key={index}
+                            className="flex items-start process-step-item"
+                            data-animate="scale"
+                            data-delay={index * 200}
+                        >
                             <div className="text-center px-6 py-4 max-w-[250px]">
-                                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center 
+                                <div className="process-step-circle w-16 h-16 mx-auto mb-4 flex items-center justify-center 
                   font-[var(--font-display)] text-[1.5rem] font-semibold text-gold-500 
                   bg-[rgba(185,150,63,0.1)] rounded-full">
                                     {step.number}
@@ -106,7 +113,7 @@ const ClientWork = () => {
                                 </p>
                             </div>
                             {index < processSteps.length - 1 && (
-                                <div className="hidden lg:block w-[60px] h-[2px] bg-[#e8dfd3] mt-8 flex-shrink-0" />
+                                <div className="process-step-line hidden lg:block w-[60px] h-[2px] bg-[#e8dfd3] mt-8 flex-shrink-0" />
                             )}
                         </div>
                     ))}

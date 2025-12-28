@@ -178,7 +178,7 @@ const Services = () => {
         <section className="services-tab-section" id="services">
             <div className="services-tab-wrapper" ref={wrapperRef}>
                 {/* Centered Header - Above columns */}
-                <div className="services-header">
+                <div className="services-header" data-animate="fade-up">
                     <span className="services-label">What I Offer</span>
                     <h2 className="services-heading">
                         Commission <span className="services-heading-accent">Services</span>
@@ -234,21 +234,24 @@ const Services = () => {
                                                     </li>
                                                 ))}
                                             </ul>
-                                            <div className="service-price-wrap fade-element">
-                                                <span className="service-price-label">Starting from</span>
-                                                <span className="service-price">{service.price}</span>
+                                            {/* Price and CTA in a row */}
+                                            <div className="service-price-cta-row fade-element">
+                                                <div className="service-price-wrap">
+                                                    <span className="service-price-label">Starting from</span>
+                                                    <span className="service-price">{service.price}</span>
+                                                </div>
+                                                <a
+                                                    href="#contact"
+                                                    onClick={scrollToContact}
+                                                    className="service-cta-button"
+                                                >
+                                                    <span>Request a Quote</span>
+                                                    <div className="service-cta-bg"></div>
+                                                </a>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                                <a
-                                    href="#contact"
-                                    onClick={scrollToContact}
-                                    className="service-cta-button"
-                                >
-                                    <span>Request a Quote</span>
-                                    <div className="service-cta-bg"></div>
-                                </a>
                             </div>
                         </div>
                     </div>

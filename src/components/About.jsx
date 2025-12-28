@@ -17,7 +17,7 @@ const About = () => {
         <section className="py-[120px] px-10 bg-[#fcf7e7]" id="about">
             <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-[80px] items-center">
                 {/* Image */}
-                <div className="relative flex-shrink-0">
+                <div className="relative flex-shrink-0" data-animate="fade-left">
                     <div className="relative w-[400px] h-[500px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
                         <img
                             src="/assets/todol/elena.jpg"
@@ -35,7 +35,7 @@ const About = () => {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1">
+                <div className="flex-1" data-animate="fade-right">
                     <span className="inline-block text-[0.8rem] font-semibold tracking-[3px] uppercase text-gold-500 mb-[15px]">
                         About Me
                     </span>
@@ -83,7 +83,7 @@ const About = () => {
                     <a
                         href="#contact"
                         onClick={scrollToContact}
-                        className="inline-flex items-center gap-[10px] px-8 py-4 text-[0.9rem] font-semibold rounded-[50px] 
+                        className="shiny-btn inline-flex items-center gap-[10px] px-8 py-4 text-[0.9rem] font-semibold rounded-[50px] 
               text-[#2a2a2a] bg-gold-400 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
               hover:bg-gold-500 hover:-translate-y-[3px] hover:shadow-[0_15px_40px_rgba(185,150,63,0.3)]"
                     >
