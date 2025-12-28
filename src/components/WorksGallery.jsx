@@ -485,7 +485,7 @@ const WorksGallery = ({ onViewArtwork }) => {
                 /* Fixed UI */
                 .works-ui {
                     position: fixed;
-                    bottom: 50px;
+                    bottom: 20px;
                     left: 60px;
                     right: 60px;
                     display: flex;
