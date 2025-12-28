@@ -5,10 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
 import ElenaIntro from './components/ElenaIntro';
 import Hero from './components/Hero';
-// import Portfolio from './components/Portfolio';
 import ConversationIntro from './components/ConversationIntro';
 import GuidedGallery from './components/GuidedGallery';
-// import WorkShowcase from './components/WorkShowcase';
 import WorksGallery from './components/WorksGallery';
 import Services from './components/Services';
 import ClientWork from './components/ClientWork';
@@ -73,15 +71,10 @@ function App() {
 
       <Navbar />
 
-      <Hero />
+      <Hero introComplete={introComplete} />
 
-      {/* <ElenaIntro onComplete={handleIntroComplete} />
-      <Navbar/>
-      <Hero /> */}
-      {/* <Portfolio onViewArtwork={handleViewArtwork} /> */}
       <ConversationIntro />
       <GuidedGallery />
-      {/* <WorkShowcase /> */}
       <WorksGallery onViewArtwork={handleViewArtwork} />
       <Services />
       <ClientWork />
@@ -99,4 +92,6 @@ function App() {
 }
 
 export default App;
+
+
 

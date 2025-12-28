@@ -104,11 +104,11 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                {/* CTA Button - Gold with rounded pill shape */}
+                {/* CTA Button - Gold with rounded pill shape + shiny effect */}
                 <a
                     href="#contact"
                     onClick={(e) => scrollToSection(e, '#contact')}
-                    className="hidden md:flex items-center gap-2 px-5 py-2.5 ml-1
+                    className="shiny-btn hidden md:flex items-center gap-2 px-5 py-2.5 ml-1
                         text-[0.82rem] font-semibold text-[#2a2a2a] 
                         bg-gradient-to-r from-[#c9a961] to-[#d4af6a] rounded-full
                         border-2 border-[#c9a961]/30
@@ -164,7 +164,7 @@ const Navbar = () => {
                         <a
                             href="#contact"
                             onClick={(e) => scrollToSection(e, '#contact')}
-                            className="flex items-center justify-center gap-2 px-4 py-3 text-[0.95rem] 
+                            className="shiny-btn flex items-center justify-center gap-2 px-4 py-3 text-[0.95rem] 
                                 font-semibold text-[#2a2a2a] bg-gradient-to-r from-[#c9a961] to-[#d4af6a] rounded-xl
                                 hover:from-[#d4af6a] hover:to-[#c9a961] transition-all duration-200"
                         >

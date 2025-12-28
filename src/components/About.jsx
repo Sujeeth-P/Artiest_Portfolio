@@ -20,7 +20,7 @@ const About = () => {
                 <div className="relative flex-shrink-0">
                     <div className="relative w-[400px] h-[500px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
                         <img
-                            src="/assets/reference_hero.jpg"
+                            src="/assets/todol/elena.jpg"
                             alt="Elena Ross - Artist"
                             className="w-full h-full object-cover"
                         />

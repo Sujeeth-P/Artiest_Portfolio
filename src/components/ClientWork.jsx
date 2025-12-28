@@ -1,13 +1,13 @@
 const ClientWork = () => {
     const testimonials = [
         {
-            image: '/assets/client_work_1.png',
+            image: '/assets/slideshow/cerfs.jpg',
             quote: `Elena captured our family perfectly. The portrait now hangs in our living room and everyone who visits comments on how beautiful it is. Her attention to detail and ability to bring out each person's personality is remarkable.`,
             author: 'Sarah Mitchell',
             project: 'Family Portrait Commission'
         },
         {
-            image: '/assets/client_work_2.png',
+            image: '/assets/landscape_painting.png',
             quote: `We commissioned Elena to create artwork for our office lobby. She understood our brand vision perfectly and delivered a stunning piece that impresses all our clients. Highly professional throughout the process.`,
             author: 'James Rodriguez',
             project: 'Corporate Art Commission'
