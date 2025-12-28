@@ -227,7 +227,7 @@ const GuidedGallery = () => {
                 /* Sophie - Top Left */
                 .guide-char.sophie-char {
                     position: absolute;
-                    top: 18%;
+                    top: 14%;
                     left: 8%;
                     z-index: 20;
                     display: flex;
@@ -240,8 +240,8 @@ const GuidedGallery = () => {
                 /* Marcus - Bottom Right */
                 .guide-char.marcus-char {
                     position: absolute;
-                    bottom: 16%;
-                    right: 6%;
+                    bottom: 12%;
+                    right: 7%;
                     z-index: 20;
                     display: flex;
                     flex-direction: column;
@@ -261,7 +261,7 @@ const GuidedGallery = () => {
                 }
 
                 .char-img {
-                    width: 150px;
+                    width: 170px;
                     height: auto;
                 }
 

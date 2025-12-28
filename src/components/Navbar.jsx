@@ -59,7 +59,7 @@ const Navbar = () => {
 
     return (
         <nav className={`fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-500
-            ${scrolled ? 'pt-3' : 'pt-5'}`}
+            ${scrolled ? 'pt-2' : 'pt-6'}`}
         >
             {/* Floating Pill Container - Centered */}
             <div className={`inline-flex items-center gap-2 transition-all duration-500
@@ -92,7 +92,7 @@ const Navbar = () => {
                             key={link.href}
                             href={link.href}
                             onClick={(e) => scrollToSection(e, link.href)}
-                            className={`px-4 py-2 text-[0.82rem] font-medium rounded-full
+                            className={`px-5 py-2 text-[0.82rem] font-medium rounded-full
                                 transition-all duration-300
                                 ${activeSection === link.href.slice(1)
                                     ? 'text-[#c9a961] bg-[#c9a961]/15'
